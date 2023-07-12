@@ -1,3 +1,4 @@
 pip-tools
 pytest-django
 pytest-socket
+factory-boy
