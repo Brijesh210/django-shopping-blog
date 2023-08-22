@@ -15,6 +15,7 @@ import environ
 
 env = environ.Env(
     DEBUG=(bool, False),
+    EMAIL_BACKEND=(str, "#TODO"),
 )
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -58,7 +59,7 @@ ROOT_URLCONF = "shopping.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -106,6 +107,9 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+#Email
+EMAIL_BACKEND = env("EMAIL_BACKEND")
+
 AUTH_USER_MODEL = "accounts.User"
 
 # Internationalization
@@ -132,6 +136,11 @@ STATIC_URL = "/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+#login redirect
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+
+
 
 # django-allauth
 # ACCOUNT_ADAPTER => default
@@ -144,7 +153,7 @@ ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 # ACCOUNT_EMAIL_CONFIRMATION_HMAC => default
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-ACCOUNT_EMAIL_SUBJECT_PREFIX = "JourneyInbox - "
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "Shopping: "
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = env("ACCOUNT_DEFAULT_HTTP_PROTOCOL")
 # ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN => default
 # ACCOUNT_EMAIL_MAX_LENGTH => default

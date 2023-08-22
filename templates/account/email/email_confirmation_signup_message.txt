@@ -1,0 +1,5 @@
+Welcome,
+
+confirm email here {{ activate_url }}
+
+regards,
