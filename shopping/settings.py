@@ -110,6 +110,8 @@ AUTHENTICATION_BACKENDS = [
 #Email
 EMAIL_BACKEND = env("EMAIL_BACKEND")
 
+# from django.core.mail.backends.console.EmailBackend
+
 AUTH_USER_MODEL = "accounts.User"
 
 # Internationalization
@@ -118,6 +120,7 @@ AUTH_USER_MODEL = "accounts.User"
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
+
 
 USE_I18N = True
 
@@ -185,3 +188,32 @@ ACCOUNT_USER_DISPLAY = lambda user: user.email  # noqa
 ACCOUNT_USERNAME_REQUIRED = False
 # ACCOUNT_USERNAME_VALIDATORS => default
 # SOCIALACCOUNT_* => default
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',  # Set the desired log level
+            'class': 'logging.StreamHandler',
+        },
+        'allauth': {
+            'level': 'DEBUG',  # Set the desired log level
+            'class': 'logging.FileHandler',
+            'filename': 'allauth.log',  # Name of the log file
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',  # Set the desired log level
+        },
+        'allauth': {
+            'handlers': ['allauth', 'console'],  # You can customize handlers here
+            'level': 'INFO',  # Set the desired log level
+            'propagate': True,
+        },
+    },
+}
+
+
